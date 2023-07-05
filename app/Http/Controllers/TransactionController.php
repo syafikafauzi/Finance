@@ -55,4 +55,11 @@ class TransactionController extends Controller
 
         return redirect()->route('transactions.index');
     }
+
+    public function delete(Transaction $transaction)
+    {
+        $transaction->delete();
+
+        return redirect()->route('transactions.index');
+    }
 }

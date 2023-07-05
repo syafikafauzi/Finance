@@ -31,5 +31,6 @@ Route::get('/transactions/{transaction}', [App\Http\Controllers\TransactionContr
 
 Route::get('/transactions/{transaction}/edit', [App\Http\Controllers\TransactionController::class,'edit'])->name('transactions.edit');
 Route::post('/transactions/{transaction}/edit', [App\Http\Controllers\TransactionController::class,'update'])->name('transactions.update');
+Route::get('/transactions/{transaction}/delete', [App\Http\Controllers\TransactionController::class,'delete'])->name('transactions.delete');
 
 Route::get('/users', [App\Http\Controllers\UserController::class,'index'])->name('users.index');
