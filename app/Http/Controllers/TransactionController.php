@@ -7,10 +7,28 @@ use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
-    public function index ()
+    public function index (Request $request)
     {
-        // query all transaction from tables 'transactions' using Transaction.php model
-        $transactions = Transaction::all();
+        //check if keyword exist
+        if($request->keyword != null){
+        //query using keyword only
+
+        $user = auth()->user();
+        $transactions =$user->transactions()
+                            ->orWhere('name','LIKE', "%$request->keyword%")
+                            ->orWhere('amount' ,'LIKE', "%$request->keyword%")
+                            ->paginate();
+
+        $transactions = Transaction::where('name', 'LIKE', "%$request->keyword%")->get();
+    }
+    else{
+        //query current user -> transactions()
+        $user = auth()->user();
+        $transactions = $user->transactions()->paginate();
+        //query all transaction from table...
+        //$transactions = Transaction::all();
+    }
+    
 
         //return view with transactions data
         return view('transactions.index', compact('transactions'));
@@ -38,11 +56,16 @@ class TransactionController extends Controller
     
     public function show(Transaction $transaction)
     {
+        $this->authorize('view',$transaction);
+
         return view('transactions.show', compact('transaction'));
     }
 
     public function edit(Transaction $transaction)
     {
+        if($transaction->user_id != auth()->user()->id){
+            abort(403);
+        }
         return view('transactions.edit', compact('transaction'));
     }
 

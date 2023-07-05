@@ -15,15 +15,17 @@
                             <th scope="col">Name</th>
                             <th scope="col">NRIC</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Total Transaction</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $user)
+                        @foreach($users as $key =>$user)
                         <tr>
-                            <th scope="row">{{ $user->id }}</th>
+                            <th scope="row">{{ ($users->perPage() * ($users->currentPage() -1))+ $key +1 }}</th>
                             <td>{{ $user->name }}</td>
                             <td> {{ $user->nric }}</td>
                             <td> {{ $user->email }}</td>
+                            <td> {{ $user->transactions->count() }}</td>
                         </tr>
                         @endforeach
                     </tbody>

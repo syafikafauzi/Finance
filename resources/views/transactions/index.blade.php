@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-header">{{ __('Transaction Index') }}</div>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     
                 <div class="card-body">
                     Total Transaction: {{ $transactions->count()}}
@@ -24,7 +24,22 @@
                     <br>
                     Minimum Amount Transaction: RM{{ $transactions->min('amount')}}
                 </div>
-        
+
+            <form method="GET" action="">
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control" value="{{ request()->get('keyword')}}"/>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+            <br>
+
+                <a href="{{ route('transactions.create') }}"
+                                class="btn btn-success">
+                                create
+                            </a>
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -40,6 +55,7 @@
                             <th scope="row">{{ $key + 1 }}</th>
                             <td>{{ $transaction->name }}</td>
                             <td>RM {{ $transaction->amount }}</td>
+                            <td> {{ $transaction->user->name }}</td>
 
                             <td>
                             <a href="{{ route('transactions.show', $transaction) }}"
