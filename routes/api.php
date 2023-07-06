@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//http://127.0.0.1:8000/api/visits
+Route::get('/visits',[App\Http\Controllers\API\VisitController::class,'index'])->name('visits.index');
+Route::post('/visits',[App\Http\Controllers\API\VisitController::class,'store'])->name('visits.store');
+Route::get('/visits/{visit}',[App\Http\Controllers\API\VisitController::class,'show'])->name('visits.show');
+Route::get('/visits/{visit}/delete',[App\Http\Controllers\API\VisitController::class,'delete'])->name('visits.delete');
