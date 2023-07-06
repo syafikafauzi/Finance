@@ -4,62 +4,61 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Visit;
+use App\Models\House;
 
-class VisitController extends Controller
+class HouseController extends Controller
 {
     public function index()
     {
-        //query all visits using Visit model
-        $visits = Visit::all();
+        //query all visits using House model
+        $houses = House::all();
 
         //return in JSON format
         return response()->json([
             'success' => true,
-            'message' => 'List of all visits',
-            'data' => $visits
+            'message' => 'List of all houses',
+            'data' => $houses
         ]);
     }
 
+    
     public function store(Request $request)
     {
         //store data - POPO
-        $visit = new Visit();
-        $visit ->visitor_name = $request->visitor_name;
-        $visit ->purpose = $request->purpose;
-        $visit ->temparature = $request->temparature;
-        $visit->save();
+        $house = new House();
+        $house ->jenis_rumah = $request->jenis_rumah;
+        $house ->alamat = $request->alamat;
+        $house->save();
 
         //return success in json format
         return response()->json([
             'success'=>true,
-            'message'=> 'Visit saved',
+            'message'=> 'House information saved',
         ]);
     }
 
-    public function show(Visit $visit)
+    public function show(House $house)
     {
 
         
         //return success in json format
         return response()->json([
             'success'=>true,
-            'message'=> 'Visit details',
+            'message'=> 'House details',
 
-            'data'=> $visit
+            'data'=> $house
         ]);
     }
 
-    public function delete(Visit $visit)
+    public function delete(House $house)
     {
         //delete visit
-        $visit->delete();
+        $house->delete();
 
         //return success in json format
         return response()->json([
             'success'=>true,
-            'message'=> 'Visit details',
+            'message'=> 'House details',
         ]);
     }
-
 }

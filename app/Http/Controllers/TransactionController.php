@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
 
+
 class TransactionController extends Controller
 {
     public function index (Request $request)
@@ -24,7 +25,7 @@ class TransactionController extends Controller
     else{
         //query current user -> transactions()
         $user = auth()->user();
-        $transactions = $user->transactions()->paginate();
+        $transactions = $user ->transactions()->paginate();
         //query all transaction from table...
         //$transactions = Transaction::all();
     }
